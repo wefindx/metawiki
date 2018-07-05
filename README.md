@@ -34,3 +34,13 @@ https://github.com/infamily/indb/wiki/level
 ```
 
 The reason I use `/` instead of `.` for namespacing in each source, is because this makes it usable as keys in the key-value databases, that rely on `.` for queries.
+
+The general resulting pattern, is, e.g.:
+
+```
+Namespace:Organization/Concept#Format
+```
+
+E.g.
+
+`IN:nasa/precession#<some measure>`
