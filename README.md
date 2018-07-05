@@ -39,8 +39,18 @@ The general resulting pattern, is, e.g.:
 
 ```
 Namespace:Organization/Concept#Format
+
+# E.g.
+IN:nasa/precession#<some measure>
 ```
 
-E.g.
+## IN namespace
+All wikis of GitHub `indb` repositories under users and organizations.
 
-`IN:nasa/precession#<some measure>`
+(The `indb` repositories are supposed to contain the definitions all apps of a GitHub organization. Organization may choose to describe their apps using the concepts of some concept vocabulary like WikiData, or define its own concepts and formats associated. If it chooses to make those definitions in the wiki associated with some `indb` repo, the concepts are accessible via `IN` namespace of this MAP.)
+
+## WD namespace
+The Wikidata namespace. All concepts and relations from WikiData.
+
+
+Feel free to PR, to extend the map.
