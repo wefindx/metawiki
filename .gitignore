@@ -1,2 +1,4 @@
 conceptese.egg-info/
 dist/
+.env/
+metawiki.egg-info/
