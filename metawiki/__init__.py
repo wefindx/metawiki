@@ -5,6 +5,22 @@ import parse
 class MetaWikiError(Exception):
     pass
 
+namespaces = {
+    'IN:': 'INDB',
+    'WD:': 'Wikidata'
+}
+urlspaces = {
+    'http://': 'HTTP location',
+    'https://': 'HTTPS location'
+}
+
+def isname(string):
+    return any([string.startswith(name) for name in namespaces])
+
+def isurl(string):
+    return any([string.startswith(url) for url in urlspaces])
+
+
 def convert(name, template, inverse=False):
 
     if inverse:
@@ -17,7 +33,12 @@ def convert(name, template, inverse=False):
 
     return endplate.format(**p.named)
 
-def name_to_url(name):
+
+def name_to_url(name, skip_valid=True):
+
+    if skip_valid:
+        if isurl(name):
+            return name
 
     template = None
 
@@ -49,7 +70,11 @@ def name_to_url(name):
         )
 
 
-def url_to_name(url):
+def url_to_name(url, skip_valid=True):
+
+    if skip_valid:
+        if isname(url):
+            return url
 
     template = None
 
