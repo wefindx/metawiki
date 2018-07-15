@@ -1,17 +1,28 @@
-MAP = {
-    'IN:{user}/{concept}': [
-        'https://github.com/{user}/indb/wiki/{concept}',
-        'https://raw.githubusercontent.com/wiki/{user}/indb/{concept}.md',
-    ],
-    'IN:{user}/{concept}#{format}': [
-        'https://github.com/{user}/indb/wiki/{concept}#{format}',
-        'https://raw.githubusercontent.com/wiki/{user}/indb/{concept}.md#{format}',
-    ],
-    'WD:Q{integer}': [
+WIKIDATA = lambda N: {
+    '%s:Q/{integer}' % (N,): [
         'https://www.wikidata.org/wiki/Q{integer}'
     ],
-    'WD:P{integer}': [
+    '%s:P/{integer}' % (N,): [
         'https://www.wikidata.org/wiki/Property:P{integer}'
     ]
 }
 
+GITHUB_WIKI = lambda N, M: {
+    '%s:{user}/{concept}' % (N,): [
+        'https://github.com/{user}/%s/wiki/{concept}' % (M,),
+        'https://raw.githubusercontent.com/wiki/{user}/%s/{concept}.md' % (M,),
+    ],
+    '%s:{user}/{concept}#{format}' % (N,): [
+        'https://github.com/{user}/%s/wiki/{concept}#{format}' % (M,),
+        'https://raw.githubusercontent.com/wiki/{user}/%s/{concept}.md#{format}' % (M,),
+    ]
+}
+
+# NAMESPACES
+
+N = {}
+N.update(WIKIDATA('WD'))
+N.update(GITHUB_WIKI('IN', 'indb'))
+N.update(GITHUB_WIKI('OO', 'ooio'))
+
+MAP = N

@@ -4,4 +4,3 @@ dist/
 metawiki.egg-info/
 *.pyc
 *.pytest_cache/*
-.pytest_cache/v/cache/lastfailed

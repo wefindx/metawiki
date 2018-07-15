@@ -42,6 +42,13 @@ def name_to_url(name, skip_valid=True):
 
     template = None
 
+    # OOIO
+    if name.startswith('OO:'):
+        if not '#' in name:
+            template = 'OO:{user}/{concept}'
+        else:
+            template = 'OO:{user}/{concept}#{format}'
+
     # INDB
     if name.startswith('IN:'):
         if not '#' in name:
@@ -52,10 +59,10 @@ def name_to_url(name, skip_valid=True):
     # Wikidata
     elif name.startswith('WD:'):
         if name.startswith('WD:Q'):
-            template = 'WD:Q{integer}'
+            template = 'WD:Q/{integer}'
 
         elif name.startswith('WD:P'):
-            template = 'WD:P{integer}'
+            template = 'WD:P/{integer}'
 
         else:
             raise MetaWikiError(
@@ -80,7 +87,12 @@ def url_to_name(url, skip_valid=True):
 
     # INDB
     if url.startswith('https://github.com/'):
-        if '/indb/wiki/' in url:
+        if '/ooio/wiki/' in url:
+            if not '#' in url:
+                template = 'https://github.com/{user}/ooio/wiki/{concept}'
+            else:
+                template = 'https://github.com/{user}/ooio/wiki/{concept}#{format}'
+        elif '/indb/wiki/' in url:
             if not '#' in url:
                 template = 'https://github.com/{user}/indb/wiki/{concept}'
             else:
