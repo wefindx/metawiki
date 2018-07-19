@@ -6,8 +6,9 @@ class MetaWikiError(Exception):
     pass
 
 namespaces = {
-    'IN:': 'INDB',
-    'WD:': 'Wikidata'
+    '_:': 'Infinity',
+    'WD:': 'Wikidata',
+    'IN:': 'OOIO' # Custom wikis under ooio repos.
 }
 urlspaces = {
     'http://': 'HTTP location',
@@ -42,21 +43,21 @@ def name_to_url(name, skip_valid=True):
 
     template = None
 
-    # OOIO
-    if name.startswith('OO:'):
+    # _:
+    if name.startswith('_:'):
         if not '#' in name:
-            template = 'OO:{user}/{concept}'
+            template = '_:{concept}'
         else:
-            template = 'OO:{user}/{concept}#{format}'
+            template = '_:{concept}#{format}'
 
-    # INDB
+    # IN:
     if name.startswith('IN:'):
         if not '#' in name:
             template = 'IN:{user}/{concept}'
         else:
             template = 'IN:{user}/{concept}#{format}'
 
-    # Wikidata
+    # WD:
     elif name.startswith('WD:'):
         if name.startswith('WD:Q'):
             template = 'WD:Q/{integer}'
@@ -85,22 +86,24 @@ def url_to_name(url, skip_valid=True):
 
     template = None
 
-    # INDB
+    # _:, IN:
     if url.startswith('https://github.com/'):
-        if '/ooio/wiki/' in url:
+        # _:
+        if '/infamily/indb/wiki/' in url:
+            if not '#' in url:
+                template = 'https://github.com/infamily/indb/wiki/{concept}'
+            else:
+                template = 'https://github.com/infamily/indb/wiki/{concept}#{format}'
+        # IN:
+        elif '/ooio/wiki/' in url:
             if not '#' in url:
                 template = 'https://github.com/{user}/ooio/wiki/{concept}'
             else:
                 template = 'https://github.com/{user}/ooio/wiki/{concept}#{format}'
-        elif '/indb/wiki/' in url:
-            if not '#' in url:
-                template = 'https://github.com/{user}/indb/wiki/{concept}'
-            else:
-                template = 'https://github.com/{user}/indb/wiki/{concept}#{format}'
         else:
             raise MetaWikiError("Undefined GitHub namespace for: {}. (currently, only repo=indb in url are valid)".format(url))
 
-    # Wikidata
+    # WD:
     if url.startswith('https://www.wikidata.org/'):
         if '/wiki/Q' in url:
             template = 'https://www.wikidata.org/wiki/Q{integer}'

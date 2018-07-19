@@ -1,3 +1,20 @@
+# Infinity namespace, to be defined on
+# https://github.com/infamily/ooio/wiki
+# and refered by keys starting with '_:'
+INFINITY = {
+    '_:{concept}': [
+        'https://github.com/infamily/indb/wiki/{concept}',
+        'https://raw.githubusercontent.com/wiki/infamily/indb/{concept}.md'
+    ],
+    '_:{concept}#{format}': [
+        'https://github.com/infamily/indb/wiki/{concept}#{format}',
+        'https://raw.githubusercontent.com/wiki/infamily/indb/{concept}.md#{format}'
+    ]
+}
+
+# Wikidata namespace, to be defined on
+# https://www.wikidata.org
+# and refered by keys starting with 'WD:'
 WIKIDATA = lambda N: {
     '%s:Q/{integer}' % (N,): [
         'https://www.wikidata.org/wiki/Q{integer}'
@@ -7,6 +24,9 @@ WIKIDATA = lambda N: {
     ]
 }
 
+# Github ooio wiki namespace, to be defined on M repo wikis
+# https://github.com/{user}/M/wiki/{concept}
+# and refered by keys starting with 'N:{user}/{concept}'
 GITHUB_WIKI = lambda N, M: {
     '%s:{user}/{concept}' % (N,): [
         'https://github.com/{user}/%s/wiki/{concept}' % (M,),
@@ -18,11 +38,9 @@ GITHUB_WIKI = lambda N, M: {
     ]
 }
 
-# NAMESPACES
 
 N = {}
+N.update(INFINITY)
 N.update(WIKIDATA('WD'))
-N.update(GITHUB_WIKI('IN', 'indb'))
-N.update(GITHUB_WIKI('OO', 'ooio'))
-
+N.update(GITHUB_WIKI('IN', 'ooio'))
 MAP = N
