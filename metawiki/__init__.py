@@ -8,7 +8,8 @@ class MetaWikiError(Exception):
 namespaces = {
     '_:': 'Infinity',
     'WD:': 'Wikidata',
-    'IN:': 'OOIO' # Custom wikis under ooio repos.
+    'IN:': 'OOIO', # Custom wikis under ooio repos.
+    'FN:': 'OOIO-FILES' # Custom files under ooio repos.
 }
 urlspaces = {
     'http://': 'HTTP location',
@@ -57,6 +58,13 @@ def name_to_url(name, skip_valid=True):
         else:
             template = 'IN:{user}/{concept}#{format}'
 
+    # FN:
+    if name.startswith('FN:'):
+        if not '#' in name:
+            template = 'FN:{user}/{concept}'
+        else:
+            template = 'FN:{user}/{concept}#{format}'
+
     # WD:
     elif name.startswith('WD:'):
         if name.startswith('WD:Q'):
@@ -100,6 +108,14 @@ def url_to_name(url, skip_valid=True):
                 template = 'https://github.com/{user}/ooio/wiki/{concept}'
             else:
                 template = 'https://github.com/{user}/ooio/wiki/{concept}#{format}'
+
+        # FN:
+        elif '/ooio/blob/master/' in url:
+            if not '#' in url:
+                template = 'https://github.com/{user}/ooio/blob/master/{concept}'
+            else:
+                template = 'https://github.com/{user}/ooio/blob/master/{concept}#{format}'
+
         else:
             raise MetaWikiError("Undefined GitHub namespace for: {}. (currently, only repo=indb in url are valid)".format(url))
 

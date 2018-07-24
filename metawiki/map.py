@@ -38,9 +38,24 @@ GITHUB_WIKI = lambda N, M: {
     ]
 }
 
+# Files of ooio repos namespaces, to be defined on M repo files
+# https://github.com/{user}/M/wiki/{concept}
+# and refered by keys starting with 'N:{user}/{filename}'
+GITHUB_FILE = lambda N, M: {
+    '%s:{user}/{concept}' % (N,): [
+        'https://github.com/{user}/%s/blob/master/{concept}' % (M,),
+        'https://raw.githubusercontent.com/{user}/%s/{concept}' % (M,),
+    ],
+    '%s:{user}/{concept}#{format}' % (N,): [
+        'https://github.com/{user}/%s/blob/master/{concept}#{format}' % (M,),
+        'https://raw.githubusercontent.com/{user}/%s/{concept}#{format}' % (M,),
+    ]
+}
+
 
 N = {}
 N.update(INFINITY)
 N.update(WIKIDATA('WD'))
-N.update(GITHUB_WIKI('IN', 'ooio'))
+N.update(GITHUB_WIKI('IN', 'ooio')) # WIKIs of ooio repos
+N.update(GITHUB_FILE('FN', 'ooio')) # FILEs of ooio repos
 MAP = N
