@@ -1,3 +1,6 @@
+NAMESPACES = {}
+
+
 # Infinity namespace, to be defined on
 # https://github.com/infamily/ooio/wiki
 # and refered by keys starting with '_:'
@@ -11,6 +14,8 @@ INFINITY = {
         'https://raw.githubusercontent.com/wiki/infamily/indb/{concept}.md#{format}'
     ]
 }
+NAMESPACES['_:'] = INFINITY
+
 
 # Wikidata namespace, to be defined on
 # https://www.wikidata.org
@@ -23,6 +28,8 @@ WIKIDATA = lambda N: {
         'https://www.wikidata.org/wiki/Property:P{integer}'
     ]
 }
+NAMESPACES['WD:'] = WIKIDATA('WD')
+
 
 # Github ooio wiki namespace, to be defined on M repo wikis
 # https://github.com/{user}/M/wiki/{concept}
@@ -37,6 +44,7 @@ GITHUB_WIKI = lambda N, M: {
         'https://raw.githubusercontent.com/wiki/{user}/%s/{concept}.md#{format}' % (M,),
     ]
 }
+NAMESPACES['IN:'] = GITHUB_WIKI('IN', 'ooio') # WIKIs of ooio repos
 
 # Files of ooio repos namespaces, to be defined on M repo files
 # https://github.com/{user}/M/wiki/{concept}
@@ -51,11 +59,10 @@ GITHUB_FILE = lambda N, M: {
         'https://raw.githubusercontent.com/{user}/%s/{concept}#{format}' % (M,),
     ]
 }
+NAMESPACES['FN:'] = GITHUB_FILE('FN', 'ooio') # FILEs of ooio repos
 
 
-N = {}
-N.update(INFINITY)
-N.update(WIKIDATA('WD'))
-N.update(GITHUB_WIKI('IN', 'ooio')) # WIKIs of ooio repos
-N.update(GITHUB_FILE('FN', 'ooio')) # FILEs of ooio repos
-MAP = N
+MAP = {}
+
+for key, value in NAMESPACES.items():
+    MAP = dict(MAP, **value)

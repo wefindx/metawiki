@@ -1,23 +1,18 @@
-from .map import MAP
+from .map import MAP, NAMESPACES
 
 import parse
 
 class MetaWikiError(Exception):
     pass
 
-namespaces = {
-    '_:': 'Infinity',
-    'WD:': 'Wikidata',
-    'IN:': 'OOIO', # Custom wikis under ooio repos.
-    'FN:': 'OOIO-FILES' # Custom files under ooio repos.
-}
+
 urlspaces = {
     'http://': 'HTTP location',
     'https://': 'HTTPS location'
 }
 
 def isname(string):
-    return any([string.startswith(name) for name in namespaces])
+    return any([string.startswith(name) for name in NAMESPACES])
 
 def isurl(string):
     return any([string.startswith(url) for url in urlspaces])
