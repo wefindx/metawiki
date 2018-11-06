@@ -23,11 +23,11 @@ def test_to_name():
 
     assert result == '@:infamily/percent-change#1hourly'
 
-    # -:
+    # ::
     result = url_to_name(
         'https://github.com/infamily/-/wiki/percent-change#1hourly')
 
-    assert result == '-:infamily/percent-change#1hourly'
+    assert result == '::infamily/percent-change#1hourly'
 
     # FN:
     result = url_to_name(
@@ -61,8 +61,8 @@ def test_to_url():
 
     assert result == 'https://github.com/infamily/terms/wiki/level'
 
-    # -:
-    result = name_to_url('-:infamily/level')
+    # ::
+    result = name_to_url('::infamily/level')
 
     assert result == 'https://github.com/infamily/-/wiki/level'
 

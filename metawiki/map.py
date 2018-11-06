@@ -45,7 +45,7 @@ GITHUB_WIKI = lambda N, M: {
 }
 NAMESPACES['IN:'] = GITHUB_WIKI('IN', 'ooio') # WIKIs of ooio repos
 NAMESPACES['@:'] = GITHUB_WIKI('@', 'terms') # WIKIs of terms repos
-NAMESPACES['-:'] = GITHUB_WIKI('-', '-') # WIKIs of - repos
+NAMESPACES['::'] = GITHUB_WIKI(':', '-') # WIKIs of - repos
 
 # Files of ooio repos namespaces, to be defined on M repo files
 # https://github.com/{user}/M/wiki/{concept}

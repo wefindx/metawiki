@@ -60,12 +60,12 @@ def name_to_url(name, skip_valid=True):
         else:
             template = '@:{user}/{concept}#{format}'
 
-    # -:
-    if name.startswith('-:'):
+    # ::
+    if name.startswith('::'):
         if not '#' in name:
-            template = '-:{user}/{concept}'
+            template = '::{user}/{concept}'
         else:
-            template = '-:{user}/{concept}#{format}'
+            template = '::{user}/{concept}#{format}'
 
 
     # FN:
@@ -126,7 +126,7 @@ def url_to_name(url, skip_valid=True):
             else:
                 template = 'https://github.com/{user}/terms/wiki/{concept}#{format}'
 
-        # -:
+        # ::
         elif '/-/wiki/' in url:
             if not '#' in url:
                 template = 'https://github.com/{user}/-/wiki/{concept}'
