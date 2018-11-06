@@ -53,6 +53,21 @@ def name_to_url(name, skip_valid=True):
         else:
             template = 'IN:{user}/{concept}#{format}'
 
+    # @:
+    if name.startswith('@:'):
+        if not '#' in name:
+            template = '@:{user}/{concept}'
+        else:
+            template = '@:{user}/{concept}#{format}'
+
+    # -:
+    if name.startswith('-:'):
+        if not '#' in name:
+            template = '-:{user}/{concept}'
+        else:
+            template = '-:{user}/{concept}#{format}'
+
+
     # FN:
     if name.startswith('FN:'):
         if not '#' in name:
@@ -103,6 +118,21 @@ def url_to_name(url, skip_valid=True):
                 template = 'https://github.com/{user}/ooio/wiki/{concept}'
             else:
                 template = 'https://github.com/{user}/ooio/wiki/{concept}#{format}'
+
+        # @:
+        elif '/terms/wiki/' in url:
+            if not '#' in url:
+                template = 'https://github.com/{user}/terms/wiki/{concept}'
+            else:
+                template = 'https://github.com/{user}/terms/wiki/{concept}#{format}'
+
+        # -:
+        elif '/-/wiki/' in url:
+            if not '#' in url:
+                template = 'https://github.com/{user}/-/wiki/{concept}'
+            else:
+                template = 'https://github.com/{user}/-/wiki/{concept}#{format}'
+
 
         # FN:
         elif '/ooio/blob/master/' in url:

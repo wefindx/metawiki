@@ -1,6 +1,5 @@
 NAMESPACES = {}
 
-
 # Infinity namespace, to be defined on
 # https://github.com/infamily/ooio/wiki
 # and refered by keys starting with '_:'
@@ -45,6 +44,8 @@ GITHUB_WIKI = lambda N, M: {
     ]
 }
 NAMESPACES['IN:'] = GITHUB_WIKI('IN', 'ooio') # WIKIs of ooio repos
+NAMESPACES['@:'] = GITHUB_WIKI('@', 'terms') # WIKIs of terms repos
+NAMESPACES['-:'] = GITHUB_WIKI('-', '-') # WIKIs of - repos
 
 # Files of ooio repos namespaces, to be defined on M repo files
 # https://github.com/{user}/M/wiki/{concept}

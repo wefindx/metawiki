@@ -17,6 +17,18 @@ def test_to_name():
 
     assert result == 'IN:infamily/percent-change#1hourly'
 
+    # @:
+    result = url_to_name(
+        'https://github.com/infamily/terms/wiki/percent-change#1hourly')
+
+    assert result == '@:infamily/percent-change#1hourly'
+
+    # -:
+    result = url_to_name(
+        'https://github.com/infamily/-/wiki/percent-change#1hourly')
+
+    assert result == '-:infamily/percent-change#1hourly'
+
     # FN:
     result = url_to_name(
         'https://github.com/mindey/ooio/blob/master/keys.md#a225d1e4')
@@ -43,6 +55,16 @@ def test_to_url():
     result = name_to_url('IN:infamily/level')
 
     assert result == 'https://github.com/infamily/ooio/wiki/level'
+
+    # @:
+    result = name_to_url('@:infamily/level')
+
+    assert result == 'https://github.com/infamily/terms/wiki/level'
+
+    # -:
+    result = name_to_url('-:infamily/level')
+
+    assert result == 'https://github.com/infamily/-/wiki/level'
 
     # FN:
     result = name_to_url('FN:mindey/keys.md#a225d1e4')
