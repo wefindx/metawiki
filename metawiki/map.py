@@ -20,10 +20,10 @@ NAMESPACES['_:'] = INFINITY
 # https://www.wikidata.org
 # and refered by keys starting with 'WD:'
 WIKIDATA = lambda N: {
-    '%s:Q/{integer}' % (N,): [
+    '%s:Q{integer}' % (N,): [
         'https://www.wikidata.org/wiki/Q{integer}'
     ],
-    '%s:P/{integer}' % (N,): [
+    '%s:P{integer}' % (N,): [
         'https://www.wikidata.org/wiki/Property:P{integer}'
     ]
 }

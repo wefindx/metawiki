@@ -78,10 +78,10 @@ def name_to_url(name, skip_valid=True):
     # WD:
     elif name.startswith('WD:'):
         if name.startswith('WD:Q'):
-            template = 'WD:Q/{integer}'
+            template = 'WD:Q{integer}'
 
         elif name.startswith('WD:P'):
-            template = 'WD:P/{integer}'
+            template = 'WD:P{integer}'
 
         else:
             raise MetaWikiError(

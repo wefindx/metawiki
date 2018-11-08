@@ -38,11 +38,11 @@ def test_to_name():
     # WD:
     result =  url_to_name('https://www.wikidata.org/wiki/Q1347367')
 
-    assert result == 'WD:Q/1347367'
+    assert result == 'WD:Q1347367'
 
     result =  url_to_name('https://www.wikidata.org/wiki/Property:P31')
 
-    assert result == 'WD:P/31'
+    assert result == 'WD:P31'
 
 def test_to_url():
 
@@ -72,6 +72,6 @@ def test_to_url():
     assert result == 'https://github.com/mindey/ooio/blob/master/keys.md#a225d1e4'
 
     # WD:
-    result = name_to_url('WD:Q/1347367')
+    result = name_to_url('WD:Q1347367')
 
     assert result == 'https://www.wikidata.org/wiki/Q1347367'
