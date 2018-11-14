@@ -61,6 +61,7 @@ GITHUB_FILE = lambda N, M: {
     ]
 }
 NAMESPACES['FN:'] = GITHUB_FILE('FN', 'ooio') # FILEs of ooio repos
+NAMESPACES['-:'] = GITHUB_FILE('-', '-') # FILEs of ooio repos
 
 
 MAP = {}

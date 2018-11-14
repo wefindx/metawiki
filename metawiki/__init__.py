@@ -75,6 +75,13 @@ def name_to_url(name, skip_valid=True):
         else:
             template = 'FN:{user}/{concept}#{format}'
 
+    # -:
+    if name.startswith('-:'):
+        if not '#' in name:
+            template = '-:{user}/{concept}'
+        else:
+            template = '-:{user}/{concept}#{format}'
+
     # WD:
     elif name.startswith('WD:'):
         if name.startswith('WD:Q'):
@@ -133,6 +140,12 @@ def url_to_name(url, skip_valid=True):
             else:
                 template = 'https://github.com/{user}/-/wiki/{concept}#{format}'
 
+        # -:
+        elif '/-/blob/master/' in url:
+            if not '#' in url:
+                template = 'https://github.com/{user}/-/blob/master/{concept}'
+            else:
+                template = 'https://github.com/{user}/-/blob/master/{concept}#{format}'
 
         # FN:
         elif '/ooio/blob/master/' in url:
