@@ -2,9 +2,9 @@ from setuptools import find_packages, setup
 
 setup(
     name='metawiki',
-    version='0.1.1',
+    version='0.1.2',
     description='A simple map for urls of definitions in notable sources.',
-    url='https://github.com/mindey/metawiki',
+    url='https://github.com/wefindx/metawiki',
     author='Mindey',
     author_email='mindey@qq.com',
     license='AGPL',
