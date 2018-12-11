@@ -114,11 +114,11 @@ def url_to_name(url, skip_valid=True):
     # _:, IN:
     if url.startswith('https://github.com/'):
         # _:
-        if '/infamily/indb/wiki/' in url:
+        if '/infamily/_/wiki/' in url:
             if not '#' in url:
-                template = 'https://github.com/infamily/indb/wiki/{concept}'
+                template = 'https://github.com/infamily/_/wiki/{concept}'
             else:
-                template = 'https://github.com/infamily/indb/wiki/{concept}#{format}'
+                template = 'https://github.com/infamily/_/wiki/{concept}#{format}'
         # IN:
         elif '/ooio/wiki/' in url:
             if not '#' in url:
@@ -155,7 +155,7 @@ def url_to_name(url, skip_valid=True):
                 template = 'https://github.com/{user}/ooio/blob/master/{concept}#{format}'
 
         else:
-            raise MetaWikiError("Undefined GitHub namespace for: {}. (currently, only repo=indb in url are valid)".format(url))
+            raise MetaWikiError("Undefined GitHub namespace for: {}. (currently, only repo=_ in url are valid)".format(url))
 
     # WD:
     if url.startswith('https://www.wikidata.org/'):

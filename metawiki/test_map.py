@@ -7,7 +7,7 @@ def test_to_name():
 
     # _:
     result = url_to_name(
-        'https://github.com/infamily/indb/wiki/percent-change#1hourly')
+        'https://github.com/infamily/_/wiki/percent-change#1hourly')
 
     assert result == '_:percent-change#1hourly'
 
@@ -56,7 +56,7 @@ def test_to_url():
     # _:
     result = name_to_url('_:level')
 
-    assert result == 'https://github.com/infamily/indb/wiki/level'
+    assert result == 'https://github.com/infamily/_/wiki/level'
 
     # IN:
     result = name_to_url('IN:infamily/level')

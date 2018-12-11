@@ -5,12 +5,12 @@ NAMESPACES = {}
 # and refered by keys starting with '_:'
 INFINITY = {
     '_:{concept}': [
-        'https://github.com/infamily/indb/wiki/{concept}',
-        'https://raw.githubusercontent.com/wiki/infamily/indb/{concept}.md'
+        'https://github.com/infamily/_/wiki/{concept}',
+        'https://raw.githubusercontent.com/wiki/infamily/_/{concept}.md'
     ],
     '_:{concept}#{format}': [
-        'https://github.com/infamily/indb/wiki/{concept}#{format}',
-        'https://raw.githubusercontent.com/wiki/infamily/indb/{concept}.md#{format}'
+        'https://github.com/infamily/_/wiki/{concept}#{format}',
+        'https://raw.githubusercontent.com/wiki/infamily/_/{concept}.md#{format}'
     ]
 }
 NAMESPACES['_:'] = INFINITY
