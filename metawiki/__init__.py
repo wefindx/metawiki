@@ -1,4 +1,5 @@
-from .map import MAP, NAMESPACES
+from metawiki.map import MAP, NAMESPACES
+from metawiki.fmap import f2n, n2f
 
 import parse
 
@@ -172,3 +173,9 @@ def url_to_name(url, skip_valid=True):
         raise MetaWikiError(
             "Could not find the template for url: {}.".format(url)
         )
+
+def ext2url(token, skip_valid=True):
+    return name_to_url(f2n(token), skip_valid=skip_valid)
+
+def url2ext(url, skip_valid=True):
+    return n2f(url_to_name(url, skip_valid=skip_valid))

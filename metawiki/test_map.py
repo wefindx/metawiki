@@ -1,4 +1,4 @@
-from . import (
+from metawiki import (
     url_to_name,
     name_to_url
 )
