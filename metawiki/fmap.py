@@ -32,14 +32,14 @@ def f2n(token):
     name = ''
 
     if _namespace.startswith('__'):     # github wikis
-        name += '::'+_namespace[2:]
+        name += '_:'+_namespace[2:]
     elif _namespace.startswith('_'):
-        name += '_:'+_namespace[1:]     # infamily wiki
+        name += '::'+_namespace[1:]     # infamily wiki
     elif _namespace == 'WD':            # wikidata
         name += _namespace + ':'
 
     if _alias is not None:
-        if _namespace.startswith('__'): # github wikis
+        if _namespace.startswith('_') and _namespace[:2]!='__' : # github wikis
             name += '/'
         name += _alias
 
@@ -71,9 +71,9 @@ def n2f(token):
     name = ''
 
     if _namespace == '_':               # infamily
-        name += _namespace
+        name += '_' + _namespace
     elif _namespace.startswith('::'):
-        name += '__' + _namespace[2:] + '@'   # infamily wiki
+        name += '_' + _namespace[2:] + '@'   # infamily wiki
     elif _namespace == 'WD':            # wikidata
         name += _namespace + '@'
 
