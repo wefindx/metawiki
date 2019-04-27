@@ -7,8 +7,8 @@
 
 # Example:
 '''
-*._topic#metaculus.*         <=> _:topic#metaculus
-*.__mindey@topic#metaculus.* <=> ::mindey/topic#metaculus
+*.__topic#metaculus.*         <=> _:topic#metaculus
+*._mindey@topic#metaculus.* <=> ::mindey/topic#metaculus
 *.WD@Q123.*                  <=> WD:Q123
 '''
 
@@ -18,8 +18,8 @@ def f2n(token):
     'filename to name'
 
     # PARSE
-    if '#' in token:
-        _concept, _format = token.rsplit('#', 1)
+    if '$' in token:
+        _concept, _format = token.rsplit('$', 1)
     else:
         _concept, _format = token, None
 
@@ -83,6 +83,6 @@ def n2f(token):
         name += _alias
 
     if _format is not None:
-        name += '#'+_format
+        name += '$'+_format
 
     return name
