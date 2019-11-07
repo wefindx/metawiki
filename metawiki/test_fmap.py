@@ -9,32 +9,26 @@ from metawiki import (
 
 def test_f2n():
 
-    # _:
-    assert f2n('__topic$metaculus') == '_:topic#metaculus'
+    # GH:
+    assert f2n('GH~mindey.-.topic_metaculus') == 'GH:mindey/-/topic#metaculus'
 
-    # ::
-    assert f2n('_mindey@topic$metaculus') == '::mindey/topic#metaculus'
-
-    # WD
-    assert f2n('WD@Q123') == 'WD:Q123'
+    # WD:
+    assert f2n('WD~Q123') == 'WD:Q123'
 
 def test_n2f():
 
-    # _:
-    assert n2f('_:topic#metaculus') == '__topic$metaculus'
+    # GH:
+    assert n2f('GH:mindey/-/topic#metaculus') == 'GH~mindey.-.topic_metaculus'
 
-    # ::
-    assert n2f('::mindey/topic#metaculus') == '_mindey@topic$metaculus'
-
-    # WD
-    assert n2f('WD:Q123') == 'WD@Q123'
+    # WD:
+    assert n2f('WD:Q123') == 'WD~Q123'
 
 def test_url2f():
-    assert url2ext('https://github.com/mindey/-/wiki/cucumber#xtrandard') == '_mindey@cucumber$xtrandard'
+    assert url2ext('https://github.com/mindey/-/wiki/cucumber#xtrandard') == 'GH~mindey.-.cucumber_xtrandard'
 
-    assert url2ext('https://github.com/infamily/_/wiki/topic#google-plus') == '__topic$google-plus'
+    assert url2ext('https://github.com/infamily/_/wiki/topic#google-plus') == 'GH~infamily._.topic_google-plus'
 
 def test_f2url():
-    assert 'https://github.com/mindey/-/wiki/cucumber#xtrandard' == ext2url('_mindey@cucumber$xtrandard')
+    assert 'https://github.com/mindey/-/wiki/cucumber#xtrandard' == ext2url('GH~mindey.-.cucumber_xtrandard')
 
-    assert 'https://github.com/infamily/_/wiki/topic#google-plus' == ext2url('__topic$google-plus')
+    assert 'https://github.com/infamily/_/wiki/topic#google-plus' == ext2url('GH~infamily._.topic_google-plus')

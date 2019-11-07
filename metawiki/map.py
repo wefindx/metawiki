@@ -1,24 +1,7 @@
 NAMESPACES = {}
 
-# Infinity namespace, to be defined on
-# https://github.com/infamily/ooio/wiki
-# and refered by keys starting with '_:'
-INFINITY = {
-    '_:{concept}': [
-        'https://github.com/infamily/_/wiki/{concept}',
-        'https://raw.githubusercontent.com/wiki/infamily/_/{concept}.md'
-    ],
-    '_:{concept}#{format}': [
-        'https://github.com/infamily/_/wiki/{concept}#{format}',
-        'https://raw.githubusercontent.com/wiki/infamily/_/{concept}.md#{format}'
-    ]
-}
-NAMESPACES['_:'] = INFINITY
-
-
-# Wikidata namespace, to be defined on
-# https://www.wikidata.org
-# and refered by keys starting with 'WD:'
+# Wikidata (https://www.wikidata.org/wiki/{reference})
+# WD: namespace refered by keys starting with 'WD:'
 WIKIDATA = lambda N: {
     '%s:Q{integer}' % (N,): [
         'https://www.wikidata.org/wiki/Q{integer}'
@@ -29,39 +12,33 @@ WIKIDATA = lambda N: {
 }
 NAMESPACES['WD:'] = WIKIDATA('WD')
 
-
-# Github ooio wiki namespace, to be defined on M repo wikis
-# https://github.com/{user}/M/wiki/{concept}
-# and refered by keys starting with 'N:{user}/{concept}'
-GITHUB_WIKI = lambda N, M: {
-    '%s:{user}/{concept}' % (N,): [
-        'https://github.com/{user}/%s/wiki/{concept}' % (M,),
-        'https://raw.githubusercontent.com/wiki/{user}/%s/{concept}.md' % (M,),
+# Github (https://github.com/{user}/{repo}/wiki/{concept})
+# GH: wiki namespace, refered by keys starting with 'GH:'
+GITHUB_WIKI = lambda N: {
+    '%s:{user}/{repo}/{concept}' % (N,): [
+        'https://github.com/{user}/{repo}/wiki/{concept}',
+        'https://raw.githubusercontent.com/wiki/{user}/{repo}/{concept}.md',
     ],
-    '%s:{user}/{concept}#{format}' % (N,): [
-        'https://github.com/{user}/%s/wiki/{concept}#{format}' % (M,),
-        'https://raw.githubusercontent.com/wiki/{user}/%s/{concept}.md#{format}' % (M,),
+    '%s:{user}/{repo}/{concept}#{format}' % (N,): [
+        'https://github.com/{user}/{repo}/wiki/{concept}#{format}',
+        'https://raw.githubusercontent.com/wiki/{user}/{repo}/{concept}.md#{format}',
     ]
 }
-NAMESPACES['IN:'] = GITHUB_WIKI('IN', 'ooio') # WIKIs of ooio repos
-NAMESPACES['@:'] = GITHUB_WIKI('@', 'terms') # WIKIs of terms repos
-NAMESPACES['::'] = GITHUB_WIKI(':', '-') # WIKIs of - repos
+NAMESPACES['GH:'] = GITHUB_WIKI('GH')
 
-# Files of ooio repos namespaces, to be defined on M repo files
-# https://github.com/{user}/M/wiki/{concept}
-# and refered by keys starting with 'N:{user}/{filename}'
-GITHUB_FILE = lambda N, M: {
-    '%s:{user}/{concept}' % (N,): [
-        'https://github.com/{user}/%s/blob/master/{concept}' % (M,),
-        'https://raw.githubusercontent.com/{user}/%s/{concept}' % (M,),
+# Github files (https://github.com/{user}/{repo}/blob/master/{concept})
+# GHF: refered by keys starting with 'GHF:'
+GITHUB_FILE = lambda N: {
+    '%s:{user}/{repo}/{concept}' % (N,): [
+        'https://github.com/{user}/{repo}/blob/master/{concept}',
+        'https://raw.githubusercontent.com/{user}/{repo}/{concept}',
     ],
-    '%s:{user}/{concept}#{format}' % (N,): [
-        'https://github.com/{user}/%s/blob/master/{concept}#{format}' % (M,),
-        'https://raw.githubusercontent.com/{user}/%s/{concept}#{format}' % (M,),
+    '%s:{user}/{repo}/{concept}#{format}' % (N,): [
+        'https://github.com/{user}/{repo}/blob/master/{concept}#{format}',
+        'https://raw.githubusercontent.com/{user}/{repo}/{concept}#{format}',
     ]
 }
-NAMESPACES['FN:'] = GITHUB_FILE('FN', 'ooio') # FILEs of ooio repos
-NAMESPACES['-:'] = GITHUB_FILE('-', '-') # FILEs of ooio repos
+NAMESPACES['GHF:'] = GITHUB_FILE('GHF') # FILEs of ooio repos
 
 
 MAP = {}

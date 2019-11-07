@@ -40,48 +40,20 @@ def name_to_url(name, skip_valid=True):
 
     template = None
 
-    # _:
-    if name.startswith('_:'):
+    # GH:
+    if name.startswith('GH:'):
         if not '#' in name:
-            template = '_:{concept}'
+            template = 'GH:{user}/{repo}/{concept}'
         else:
-            template = '_:{concept}#{format}'
-
-    # IN:
-    if name.startswith('IN:'):
-        if not '#' in name:
-            template = 'IN:{user}/{concept}'
-        else:
-            template = 'IN:{user}/{concept}#{format}'
-
-    # @:
-    if name.startswith('@:'):
-        if not '#' in name:
-            template = '@:{user}/{concept}'
-        else:
-            template = '@:{user}/{concept}#{format}'
-
-    # ::
-    if name.startswith('::'):
-        if not '#' in name:
-            template = '::{user}/{concept}'
-        else:
-            template = '::{user}/{concept}#{format}'
+            template = 'GH:{user}/{repo}/{concept}#{format}'
 
 
-    # FN:
-    if name.startswith('FN:'):
+    # GHF:
+    if name.startswith('GHF:'):
         if not '#' in name:
-            template = 'FN:{user}/{concept}'
+            template = 'GHF:{user}/{repo}/{concept}'
         else:
-            template = 'FN:{user}/{concept}#{format}'
-
-    # -:
-    if name.startswith('-:'):
-        if not '#' in name:
-            template = '-:{user}/{concept}'
-        else:
-            template = '-:{user}/{concept}#{format}'
+            template = 'GHF:{user}/{repo}/{concept}#{format}'
 
     # WD:
     elif name.startswith('WD:'):
@@ -112,48 +84,22 @@ def url_to_name(url, skip_valid=True):
 
     template = None
 
-    # _:, IN:
+    # GH:
     if url.startswith('https://github.com/'):
-        # _:
-        if '/infamily/_/wiki/' in url:
-            if not '#' in url:
-                template = 'https://github.com/infamily/_/wiki/{concept}'
-            else:
-                template = 'https://github.com/infamily/_/wiki/{concept}#{format}'
-        # IN:
-        elif '/ooio/wiki/' in url:
-            if not '#' in url:
-                template = 'https://github.com/{user}/ooio/wiki/{concept}'
-            else:
-                template = 'https://github.com/{user}/ooio/wiki/{concept}#{format}'
 
-        # @:
-        elif '/terms/wiki/' in url:
+        # GH:
+        if '/wiki/' in url:
             if not '#' in url:
-                template = 'https://github.com/{user}/terms/wiki/{concept}'
+                template = 'https://github.com/{user}/{repo}/wiki/{concept}'
             else:
-                template = 'https://github.com/{user}/terms/wiki/{concept}#{format}'
+                template = 'https://github.com/{user}/{repo}/wiki/{concept}#{format}'
 
-        # ::
-        elif '/-/wiki/' in url:
+        # GHF:
+        elif '/blob/master/' in url:
             if not '#' in url:
-                template = 'https://github.com/{user}/-/wiki/{concept}'
+                template = 'https://github.com/{user}/{repo}/blob/master/{concept}'
             else:
-                template = 'https://github.com/{user}/-/wiki/{concept}#{format}'
-
-        # -:
-        elif '/-/blob/master/' in url:
-            if not '#' in url:
-                template = 'https://github.com/{user}/-/blob/master/{concept}'
-            else:
-                template = 'https://github.com/{user}/-/blob/master/{concept}#{format}'
-
-        # FN:
-        elif '/ooio/blob/master/' in url:
-            if not '#' in url:
-                template = 'https://github.com/{user}/ooio/blob/master/{concept}'
-            else:
-                template = 'https://github.com/{user}/ooio/blob/master/{concept}#{format}'
+                template = 'https://github.com/{user}/{repo}/blob/master/{concept}#{format}'
 
         else:
             raise MetaWikiError("Undefined GitHub namespace for: {}. (currently, only repo=_ in url are valid)".format(url))
