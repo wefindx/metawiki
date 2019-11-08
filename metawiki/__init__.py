@@ -75,6 +75,8 @@ def name_to_url(name, skip_valid=True):
             "Could not find the template for concept: {}.".format(name)
         )
 
+name2url = name_to_url
+
 
 def url_to_name(url, skip_valid=True):
 
@@ -119,6 +121,8 @@ def url_to_name(url, skip_valid=True):
         raise MetaWikiError(
             "Could not find the template for url: {}.".format(url)
         )
+
+url2name = url_to_name
 
 def ext2url(token, skip_valid=True):
     return name_to_url(f2n(token), skip_valid=skip_valid)
