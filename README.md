@@ -6,7 +6,7 @@ In order to refer to a concept unambiguously, these days, it is easiest to use U
 
 THUS:
 
-It makes sense to define a specific MAP function, that implements a namespace to refer to all concepts on the web. Mostly, concepts are defined on wikis, so call it - `metawiki`.
+It makes sense to define a specific **[MAP](/metawiki/map.py)** function, that implements a namespace to refer to all concepts on the web. Mostly, concepts are defined on wikis, so call it - `metawiki`.
 
 `pip install metawiki`
 
@@ -17,7 +17,7 @@ It makes sense to define a specific MAP function, that implements a namespace to
 )
 ```
 
-## GitHub wikis (GH namespace)
+## [GitHub  wikis](https://help.github.com/en/github/building-a-strong-community/about-wikis) (GH namespace)
 All wikis of GitHub repositories under users and organizations.
 
 ```
@@ -28,7 +28,27 @@ All wikis of GitHub repositories under users and organizations.
 https://github.com/infamily/terms/wiki/level
 ```
 
-## Wikidata (WD namespace)
+In addition, namespace **GHF** also exists, to refer to files on GitHub repositories:
+```
+>>> url2name('https://github.com/wefindx/metawiki/metawiki/map.py')
+'GHF:wefindx/metawiki/metawiki/map.py'
+
+>>> name2url('GHF:wefindx/metawiki/metawiki/map.py')
+'https://github.com/wefindx/metawiki/blob/master/metawiki/map.py'
+```
+
+The reason we use `/` instead of `.` for namespacing in each source, is because this makes it usable as keys in the key-value databases, that rely on `.` for queries.
+
+The general resulting pattern, is, e.g.:
+
+```
+Namespace:Path/In/Organization/Concept#Format
+
+# E.g.
+GH:nasa/terms/precession#<some metric or measure>
+```
+
+## [Wikidata](https://www.wikidata.org/) (WD namespace)
 
 The Wikidata namespace. All concepts and relations from WikiData.
 ```
@@ -43,16 +63,10 @@ The Wikidata namespace. All concepts and relations from WikiData.
 ...
 ```
 
-The reason we use `/` instead of `.` for namespacing in each source, is because this makes it usable as keys in the key-value databases, that rely on `.` for queries.
+## [LOV](https://lov.linkeddata.es/dataset/lov/vocabs/) (a-loc..zbwext namespaces)
 
-The general resulting pattern, is, e.g.:
-
-```
-Namespace:Path/In/Organization/Concept#Format
-
-# E.g.
-GH:nasa/terms/precession#<some metric or measure>
-```
+Lowercase letters only used to refer to the namespaces from LOV.
+Load it after importing metawiki with `metawiki.map.load_lov()`.
 
 
-Feel free to PR, to extend the map.
+_Feel free to PR, to extend the [map](/metawiki/map.py)._

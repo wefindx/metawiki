@@ -1,4 +1,4 @@
-from metawiki.map import MAP, NAMESPACES
+from metawiki.map import MAP, NAMESPACES, LOV
 from metawiki.fmap import f2n, n2f
 
 import parse
@@ -67,6 +67,11 @@ def name_to_url(name, skip_valid=True):
             raise MetaWikiError(
                 "Wikidata concept cannot start with anything other than WD:Q or WD:P, you provided: {}.".format(name)
             )
+    # LOV
+    else:
+        for vocab in LOV:
+            if name.split(':', 1)[0] == vocab['prefix']:
+                template = '%s:{concept}' % name.split(':', 1)[0]
 
     if template:
         return convert(name, template)
@@ -107,13 +112,21 @@ def url_to_name(url, skip_valid=True):
             raise MetaWikiError("Undefined GitHub namespace for: {}. (currently, only repo=_ in url are valid)".format(url))
 
     # WD:
-    if url.startswith('https://www.wikidata.org/'):
+    elif url.startswith('https://www.wikidata.org/'):
         if '/wiki/Q' in url:
             template = 'https://www.wikidata.org/wiki/Q{integer}'
         elif '/wiki/Property:P' in url:
             template = 'https://www.wikidata.org/wiki/Property:P{integer}'
         else:
             raise MetaWikiError("Undefined Wikidata namespace for: {}.".format(url))
+
+    # LOV
+    else:
+        for vocab in LOV:
+            if vocab['nsp'].split('://', 1)[-1][:-1] in url:
+                url = vocab['nsp'] + url.split('#', 1)[-1]
+                template = vocab['nsp']+'{concept}'
+
 
     if template:
         return convert(url, template, inverse=True)

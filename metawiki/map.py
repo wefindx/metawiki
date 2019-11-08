@@ -1,3 +1,5 @@
+from metawiki import data
+
 NAMESPACES = {}
 
 # Wikidata (https://www.wikidata.org/wiki/{reference})
@@ -39,6 +41,18 @@ GITHUB_FILE = lambda N: {
     ]
 }
 NAMESPACES['GHF:'] = GITHUB_FILE('GHF') # FILEs of ooio repos
+
+
+# LOV vocabularies (https://lov.linkeddata.es/dataset/lov/vocabs/)
+# Close to 700 namespaces.
+LOV = data.get_lov()
+RESERVED = NAMESPACES.keys()
+
+for vocab in LOV:
+    if vocab['prefix'] not in RESERVED:
+        NAMESPACES['%s:' % vocab['prefix']] = {
+            '%s:{concept}' % vocab['prefix']: ['%s{concept}' % vocab['nsp']]
+        }
 
 
 MAP = {}
