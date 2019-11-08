@@ -1,9 +1,9 @@
 import os
 import json
 import urllib.request
-from distutils.sysconfig import get_python_lib
+import pkgutil
 
-lov_path = os.path.join(get_python_lib(), 'metawiki/data/LOV.json')
+lov_path = os.path.join(os.path.dirname(pkgutil.find_loader('metawiki').path), 'data/LOV.json')
 
 def get(url):
     request = urllib.request.Request(
