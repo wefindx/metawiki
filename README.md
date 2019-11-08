@@ -65,8 +65,9 @@ The Wikidata namespace. All concepts and relations from WikiData.
 
 ## [LOV](https://lov.linkeddata.es/dataset/lov/vocabs/) (a-loc..zbwext namespaces)
 
-Lowercase letters only used to refer to the namespaces from LOV.
-Load it after importing metawiki with `metawiki.map.load_lov()`.
+The LOV namespaces. (Most of the semantic web, as defined through RDF initiative.)
+
+Get the newest after importing metawiki with `metawiki.data.update_lov()`.
 
 
 _Feel free to PR, to extend the [map](/metawiki/map.py)._
