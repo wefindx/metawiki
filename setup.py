@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='metawiki',
-    version='0.1.8',
+    version='0.1.9',
     description='A simple map for urls of definitions in notable sources.',
     url='https://github.com/wefindx/metawiki',
     author='Mindey',
@@ -13,5 +13,9 @@ setup(
     extras_require = {
         'test': ['coverage', 'pytest', 'pytest-cov'],
     },
-    zip_safe=False
+    zip_safe=False,
+    package_data = {
+        'metawiki':
+        ['data/*']
+    }
 )
