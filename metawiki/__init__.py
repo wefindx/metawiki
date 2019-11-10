@@ -167,3 +167,14 @@ def ext2url(token, skip_valid=True):
 
 def url2ext(url, skip_valid=True):
     return n2f(url_to_name(url, skip_valid=skip_valid))
+
+def fn2url(path):
+    # extract sub-exstension from filename:
+    if path.count('.') >= 1:
+        subext = path.rsplit('.', 2)[-2]
+        try:
+            return ext2url(subext)
+        except:
+            raise Exception("No URL found for sub-extension: '%s'" % subext)
+    else:
+        raise Exception("Sub-extension not found in the filename.")

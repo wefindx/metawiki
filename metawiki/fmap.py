@@ -1,4 +1,7 @@
-# Files Map -- Crosswalk map.
+# Files Map
+
+# Allows to attach schemas to paths and filenames inside them.
+# i.e., metawiki.get_path_schema(<filename or url>)
 
 # Extenions:        .yaml, .json, .csv., .xlsx, .png
 # Sub-extensions:   .Topic.yaml, .Comment.yaml, .Drawing.png
@@ -7,9 +10,17 @@
 
 # Example:
 '''
-*GH~mindey.terms.topic_metaculus.* <=> GH:mindey/terms/topic#metaculus
-*WD~Q123.*                         <=> WD:Q123
+*.GH~wefindx+schema+Sale.*      <=> GH:wefindx/schema/Sale
+*.GH~mindey+-+topic$metaculus.* <=> GH:mindey/-/topic#metaculus
+*.WD~Q123.*                     <=> WD:Q123
+
+Then, also:
+*.GH~wefindx+schema+Sale.csv       <=> {'ext': 'csv', 'schema': 'https://github.com/wefindx/schema/wiki/Sale'}
+*.GH~mindey+-+topic$metaculus.json <=> {'ext': 'json', 'schema': 'https://github.com/mindey/-/wiki/topic#metaculus'}
+*.WD~Q123$XYZ.png                  <=> {'ext': 'png', 'schema': 'https://www.wikidata.org/wiki/Q123#XYZ'}
 '''
+# To allow to parse file content automatically by using schema reference in the filenames of data. (metawiki.get_path_schema)
+
 
 FMAP = {}
 
@@ -17,8 +28,8 @@ def f2n(token):
     'filename to name'
 
     # PARSE
-    if '_' in token:
-        _concept, _format = token.rsplit('_', 1)
+    if '$' in token:
+        _concept, _format = token.rsplit('$', 1)
     else:
         _concept, _format = token, None
 
@@ -30,20 +41,17 @@ def f2n(token):
     # MERGE
     name = ''
 
-    if _namespace == 'GH':            # github wikis
-        name += _namespace + ':'
-    elif _namespace == 'GHF':         # github repo files
-        name += _namespace + ':'
-    elif _namespace == 'WD':          # wikidata
+    if _namespace is not None:
         name += _namespace + ':'
 
     if _alias is not None:
-        name += _alias.replace('.', '/')
+        name += _alias.replace('+', '/')
 
     if _format is not None:
-        name += '#'+_format
+        name += '#' + _format
 
     return name
+
 
 
 def n2f(token):
@@ -56,19 +64,22 @@ def n2f(token):
         _concept, _format = token, None
 
     if ':' in _concept:
-        _namespace, _path = _concept.rsplit(':', 1)
+        _namespace, _alias = _concept.rsplit(':', 1)
     else:
-        _namespace, _path = _concept, None
+        _namespace, _alias = _concept, None
 
     # MERGE
     name = ''
 
-    name += _namespace + '~'
+    name += _namespace  + '~'
 
-    if _path is not None:
-        name += _path.replace('/', '.')
+    if _alias is not None:
+        name += _alias.replace('/', '+')
 
     if _format is not None:
-        name += '_'+_format
+        name += '$' + _format
 
     return name
+
+
+
