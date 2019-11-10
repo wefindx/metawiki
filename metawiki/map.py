@@ -54,6 +54,16 @@ for vocab in LOV:
             '%s:{concept}' % vocab['prefix']: ['%s{concept}' % vocab['nsp']]
         }
 
+# JSON-LD (http://www.w3.org/ns/json-ld#{reference})
+NAMESPACES['jsonld:'] = {
+    'jsonld:{concept}': [
+        'http://www.w3.org/ns/json-ld#{concept}'
+    ],
+    'jsonlds:{schema}': [
+        'https://json-ld.org/contexts/{schema}'
+    ]
+}
+
 
 MAP = {}
 

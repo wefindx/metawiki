@@ -67,11 +67,20 @@ def name_to_url(name, skip_valid=True):
             raise MetaWikiError(
                 "Wikidata concept cannot start with anything other than WD:Q or WD:P, you provided: {}.".format(name)
             )
+
+    # JSON-LD
+    elif name.startswith('jsonld:'):
+        template = 'jsonld:{concept}'
+
+    elif name.startswith('jsonlds:'):
+        template = 'jsonlds:{schema}'
+
     # LOV
     else:
         for vocab in LOV:
             if name.split(':', 1)[0] == vocab['prefix']:
                 template = '%s:{concept}' % name.split(':', 1)[0]
+
 
     if template:
         return convert(name, template)
@@ -85,9 +94,10 @@ name2url = name_to_url
 
 def url_to_name(url, skip_valid=True):
 
-    if skip_valid:
-        if isname(url):
-            return url
+    # if skip_valid:
+    #     if isname(url):
+    #         return url
+    #
 
     template = None
 
@@ -120,12 +130,27 @@ def url_to_name(url, skip_valid=True):
         else:
             raise MetaWikiError("Undefined Wikidata namespace for: {}.".format(url))
 
+    # JSON-LD
+    elif '://www.w3.org/ns/json-ld' in url[:29]:
+        if url.startswith('https'):
+            url = 'http'+url[5:]
+
+        template = 'http://www.w3.org/ns/json-ld#{concept}'
+
+    elif url.startswith('https://json-ld.org/contexts/'):
+        template = 'https://json-ld.org/contexts/{schema}'
+
     # LOV
     else:
         for vocab in LOV:
             if vocab['nsp'].split('://', 1)[-1][:-1] in url:
-                url = vocab['nsp'] + url.split('#', 1)[-1]
+
+                # Exceptions for URLs with Quirky Redirects like '/SAN#Actuator' -> '/SAN.html#Actuator'
+                if vocab['prefix'] == 'SAN':
+                    url = vocab['nsp'] + url.rsplit('#', 1)[-1]
+
                 template = vocab['nsp']+'{concept}'
+                break
 
 
     if template:
